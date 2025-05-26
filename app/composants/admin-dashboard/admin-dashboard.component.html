@@ -1,0 +1,143 @@
+<div class="container-fluid mt-4">
+  <!-- En-tête -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="bi bi-speedometer2 me-2"></i>Tableau de bord administrateur</h1>
+    <button class="btn btn-primary" routerLink="/admin/users/new">
+      <i class="bi bi-person-plus"></i> Nouvel utilisateur
+    </button>
+  </div>
+
+  <!-- Statistiques -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-3">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-people"></i> Utilisateurs</h5>
+          <div class="display-4">{{ stats?.total_users || 0 }}</div>
+          <small class="text-muted">dont {{ stats?.active_users }} actifs</small>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-3">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-building"></i> Classes</h5>
+          <div class="display-4">{{ stats?.total_classes || 0 }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-mortarboard"></i> Enseignants</h5>
+          <div class="display-4">{{ teachers.length || 0 }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-graph-up"></i> Moyenne générale</h5>
+          <div class="display-4">{{ stats?.avg_grades?.toFixed(1) || '0.0' }}</div>
+          <small class="text-muted">/20</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions rapides -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <i class="bi bi-upload"></i> Importation CSV
+        </div>
+        <div class="card-body">
+          <div class="input-group">
+            <input type="file" class="form-control" accept=".csv" (change)="onFileSelected($event)">
+            <button class="btn btn-success" [disabled]="!csvFile" (click)="uploadUsersCSV()">
+              Importer utilisateurs
+            </button>
+          </div>
+          <small class="text-muted">Format attendu : Nom, Prénom, Email, Rôle</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+          <i class="bi bi-download"></i> Exportation
+        </div>
+        <div class="card-body">
+          <button class="btn btn-outline-dark me-2" (click)="generateFullReport()">
+            Rapport complet PDF
+          </button>
+          <button class="btn btn-outline-dark" routerLink="/admin/classes/new">
+            <i class="bi bi-plus-circle"></i> Nouvelle classe
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dernières activités -->
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-info text-white">
+          <i class="bi bi-clock-history"></i> Derniers utilisateurs
+        </div>
+        <div class="card-body">
+          <div class="list-group">
+            <a *ngFor="let user of recentUsers" 
+               routerLink="/admin/users/{{user.id}}" 
+               class="list-group-item list-group-item-action">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h6>{{ user.nom }} {{ user.prenom }}</h6>
+                  <small class="text-muted">{{ user.email }}</small>
+                </div>
+                <span class="badge" [ngClass]="{
+                  'bg-success': user.status === 'Actif',
+                  'bg-secondary': user.status === 'Inactif'
+                }">
+                  {{ user.role }}
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-warning text-dark">
+          <i class="bi bi-building"></i> Dernières classes
+        </div>
+        <div class="card-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Niveau</th>
+                <th>Élèves</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let classe of recentClasses" routerLink="/admin/classes/{{classe.id}}">
+                <td>{{ classe.name }}</td>
+                <td>{{ classe.level }}</td>
+                <td>{{ classe.student_count }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

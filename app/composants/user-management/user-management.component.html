@@ -1,0 +1,170 @@
+<div class="container mt-4" *ngIf="authService.hasRole('admin')">
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">
+      <i class="bi bi-people-fill me-2"></i>Gestion des utilisateurs
+    </h2>
+    <button class="btn btn-primary" (click)="showCreateForm = true">
+      <i class="bi bi-plus-lg me-2"></i>Nouvel utilisateur
+    </button>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="input-group mb-4">
+    <span class="input-group-text">
+      <i class="bi bi-search"></i>
+    </span>
+    <input 
+      type="text" 
+      class="form-control"
+      placeholder="Rechercher un utilisateur..."
+      [(ngModel)]="searchTerm"
+      (input)="loadUsers()"
+    >
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Users Table -->
+  <table *ngIf="!isLoading" class="table table-hover align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>Nom</th>
+        <th>Rôle</th>
+        <th>Email</th>
+        <th>Statut</th>
+        <th class="text-end">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.prenom }} {{ user.nom }}</td>
+        <td>
+          <span class="badge" [ngClass]="{
+            'bg-primary': user.role === 'admin',
+            'bg-success': user.role === 'teacher',
+            'bg-info': user.role === 'student'
+          }">
+            {{ user.role | titlecase }}
+          </span>
+        </td>
+        <td>{{ user.email || '-' }}</td>
+        <td>
+          <span class="badge" [ngClass]="{
+            'bg-success': user.status === 'Actif',
+            'bg-secondary': user.status === 'Inactif'
+          }">
+            {{ user.status || 'Inactif' }}
+          </span>
+        </td>
+        <td class="text-end">
+          <button 
+            class="btn btn-sm btn-outline-primary me-2"
+            (click)="openEditModal(user)"
+          >
+            <i class="bi bi-pencil-square"></i>
+          </button>
+          <button 
+            class="btn btn-sm btn-outline-danger"
+            (click)="deleteUser(user.id)"
+          >
+            <i class="bi bi-trash3"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && users.length === 0" class="text-center py-5 text-muted">
+    <i class="bi bi-people display-6"></i>
+    <p class="h5 mt-3">Aucun utilisateur trouvé</p>
+  </div>
+
+  <!-- User Form Modal -->
+  <div class="modal fade" [class.show]="showCreateForm || selectedUser" [style.display]="(showCreateForm || selectedUser) ? 'block' : 'none'">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            {{ selectedUser ? 'Modifier' : 'Créer' }} utilisateur
+          </h5>
+          <button type="button" class="btn-close" (click)="resetForm()"></button>
+        </div>
+        
+        <div class="modal-body">
+          <form #userForm="ngForm" (ngSubmit)="handleFormSubmit(userForm.value)">
+            <div class="mb-3">
+              <label class="form-label">Rôle</label>
+              <select 
+                class="form-select" 
+                name="role" 
+                ngModel
+                required
+              >
+                <option value="admin">Administrateur</option>
+                <option value="teacher">Enseignant</option>
+                <option value="student">Étudiant</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Nom</label>
+              <input 
+                type="text" 
+                class="form-control"
+                name="nom"
+                ngModel
+                required
+              >
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Prénom</label>
+              <input 
+                type="text" 
+                class="form-control"
+                name="prenom"
+                ngModel
+                required
+              >
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input 
+                type="email" 
+                class="form-control"
+                name="email"
+                ngModel
+                required
+              >
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-4">
+              <button 
+                type="button" 
+                class="btn btn-outline-secondary"
+                (click)="resetForm()"
+              >
+                Annuler
+              </button>
+              <button 
+                type="submit" 
+                class="btn btn-primary"
+                [disabled]="!userForm.valid"
+              >
+                {{ selectedUser ? 'Mettre à jour' : 'Créer' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

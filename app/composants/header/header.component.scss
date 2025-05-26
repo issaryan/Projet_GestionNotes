@@ -1,0 +1,70 @@
+.navbar {
+  background-color: var(--bs-primary) !important;
+  padding: 0.75rem 1rem;
+  
+  .navbar-brand {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: white !important;
+    display: flex;
+    align-items: center;
+    
+    .bi {
+      margin-right: 0.5rem;
+      font-size: 1.5rem;
+    }
+  }
+  
+  .nav-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    border-radius: 0.35rem;
+    
+    &:hover, &.active {
+      color: white !important;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .bi {
+      margin-right: 0.5rem;
+    }
+  }
+  
+  .dropdown-menu {
+    border: none;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    border-radius: 0.35rem;
+    padding: 0.5rem 0;
+    
+    .dropdown-item {
+      padding: 0.5rem 1.5rem;
+      font-weight: 600;
+      color: var(--bs-dark);
+      
+      &:hover {
+        background-color: var(--bs-light);
+        color: var(--bs-primary);
+      }
+      
+      .bi {
+        margin-right: 0.75rem;
+        width: 1.25rem;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.2s ease;
+  
+  &:hover {
+    border-color: white;
+  }
+}

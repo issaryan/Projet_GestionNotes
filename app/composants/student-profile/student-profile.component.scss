@@ -1,0 +1,65 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  padding: 2rem 0;
+  background-color: #f8f9fa;
+}
+
+.avatar-placeholder {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  border: none;
+  border-radius: 0.75rem;
+  transition: transform 0.2s;
+  
+  &:hover {
+    transform: translateY(-3px);
+  }
+
+  &-header {
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    border-radius: 0.75rem 0.75rem 0 0 !important;
+  }
+}
+
+.table {
+  th {
+    font-weight: 500;
+    background-color: #f8f9fa;
+  }
+  
+  tr:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+}
+
+.badge {
+  font-size: 0.9em;
+  padding: 0.5em 0.75em;
+  border-radius: 0.5rem;
+}
+
+.list-group-item {
+  border-radius: 0.5rem !important;
+  margin-bottom: 0.5rem;
+  transition: all 0.2s;
+  
+  &:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.form-select {
+  border-radius: 0.5rem;
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  }
+}

@@ -1,0 +1,85 @@
+<section class="features-section py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">Fonctionnalités Clés</h2>
+    
+    <!-- Admin Features -->
+    @if (!isLoggedIn || userRole === 'admin') {
+      <div class="mb-5">
+        <h3 class="text-center mb-4"><i class="bi bi-shield-lock me-2"></i>Pour les Administrateurs</h3>
+        <div class="row g-4">
+          @for (feature of features.admin; track feature.title) {
+            <div class="col-md-4">
+              <div class="card h-100 shadow">
+                <div class="card-body text-center p-4">
+                  <i class="bi {{ feature.icon }} text-primary fs-1 mb-3"></i>
+                  <h4 class="card-title">{{ feature.title }}</h4>
+                  <p class="card-text text-muted">{{ feature.description }}</p>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Teacher Features -->
+    @if (!isLoggedIn || userRole === 'teacher') {
+      <div class="mb-5">
+        <h3 class="text-center mb-4"><i class="bi bi-easel me-2"></i>Pour les Enseignants</h3>
+        <div class="row g-4">
+          @for (feature of features.teacher; track feature.title) {
+            <div class="col-md-4">
+              <div class="card h-100 shadow">
+                <div class="card-body text-center p-4">
+                  <i class="bi {{ feature.icon }} text-primary fs-1 mb-3"></i>
+                  <h4 class="card-title">{{ feature.title }}</h4>
+                  <p class="card-text text-muted">{{ feature.description }}</p>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- Student Features -->
+    @if (!isLoggedIn || userRole === 'student') {
+      <div class="mb-5">
+        <h3 class="text-center mb-4"><i class="bi bi-backpack me-2"></i>Pour les Étudiants</h3>
+        <div class="row g-4">
+          @for (feature of features.student; track feature.title) {
+            <div class="col-md-4">
+              <div class="card h-100 shadow">
+                <div class="card-body text-center p-4">
+                  <i class="bi {{ feature.icon }} text-primary fs-1 mb-3"></i>
+                  <h4 class="card-title">{{ feature.title }}</h4>
+                  <p class="card-text text-muted">{{ feature.description }}</p>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="about-section bg-light py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <h2 class="mb-4">À propos d'EduManage</h2>
+        <p class="lead mb-4">
+          EduManage est une solution tout-en-un pour la gestion numérique des établissements scolaires.
+          Développée avec les dernières technologies web, notre plateforme offre :
+        </p>
+        <ul class="list-unstyled text-start d-inline-block">
+          <li class="mb-3"><i class="bi bi-check2-circle text-success me-2"></i>Interface intuitive et responsive</li>
+          <li class="mb-3"><i class="bi bi-shield-lock text-success me-2"></i>Sécurité des données renforcée</li>
+          <li class="mb-3"><i class="bi bi-lightning-charge text-success me-2"></i>Mises à jour en temps réel</li>
+          <li><i class="bi bi-headset text-success me-2"></i>Support technique 24/7</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
