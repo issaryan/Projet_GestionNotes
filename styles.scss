@@ -1,92 +1,197 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles */
 @use "../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 
 :root {
-  --bs-body-bg: #f8f9fa;
-  --bs-primary: #4e73df;
-  --bs-secondary: #858796;
-  --bs-success: #1cc88a;
-  --bs-info: #36b9cc;
-  --bs-warning: #f6c23e;
-  --bs-danger: #e74a3b;
-  --bs-light: #f8f9fc;
-  --bs-dark: #5a5c69;
+  // Palette de couleurs moderne
+  --bs-primary: #2563eb;
+  --bs-secondary: #64748b;
+  --bs-success: #10b981;
+  --bs-info: #0ea5e9;
+  --bs-warning: #f59e0b;
+  --bs-danger: #ef4444;
+  --bs-light: #f8fafc;
+  --bs-dark: #1e293b;
+  
+  // Variables personnalisées
+  --app-border-radius: 0.5rem;
+  --app-transition: all 0.3s ease;
+  --app-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 body {
-  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--bs-body-bg);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bs-light);
   color: var(--bs-dark);
   line-height: 1.6;
 }
 
+// Cards
 .card {
   border: none;
-  border-radius: 0.35rem;
-  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: var(--app-border-radius);
+  box-shadow: var(--app-shadow);
+  transition: var(--app-transition);
   
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1.25rem;
+    
+    h5, h6 {
+      margin-bottom: 0;
+      font-weight: 600;
+    }
+  }
+  
+  .card-body {
+    padding: 1.25rem;
   }
 }
 
+// Buttons
 .btn {
-  font-weight: 600;
-  padding: 0.5rem 1.25rem;
-  border-radius: 0.35rem;
-  transition: all 0.2s ease;
-}
-
-.navbar {
-  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
-}
-
-.table {
-  th {
-    font-weight: 600;
-    color: var(--bs-dark);
-    border-top: none;
+  border-radius: var(--app-border-radius);
+  padding: 0.625rem 1.25rem;
+  font-weight: 500;
+  transition: var(--app-transition);
+  
+  &-primary {
+    background: linear-gradient(to right, var(--bs-primary), darken(#2563eb, 10%));
+    border: none;
+    
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    }
   }
 }
 
+// Forms
 .form-control {
-  border-radius: 0.35rem;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #d1d3e2;
+  border-radius: var(--app-border-radius);
+  padding: 0.625rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: var(--app-transition);
   
   &:focus {
     border-color: var(--bs-primary);
-    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
   }
 }
 
-/* Animations */
+// Tables
+.table {
+  thead {
+    background-color: var(--bs-light);
+    
+    th {
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      padding: 1rem;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+    }
+  }
+  
+  tbody {
+    tr {
+      transition: var(--app-transition);
+      
+      &:hover {
+        background-color: rgba(37, 99, 235, 0.05);
+      }
+      
+      td {
+        padding: 1rem;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+// Badges
+.badge {
+  padding: 0.5em 0.75em;
+  font-weight: 500;
+  border-radius: 9999px;
+}
+
+// Animations
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.5s ease forwards;
+  animation: fadeIn 0.4s ease-out forwards;
 }
 
-@keyframes slideInRight {
-  from { transform: translateX(20px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-.animate-slide-in-right {
-  animation: slideInRight 0.4s ease forwards;
+.animate-slide-in {
+  animation: slideIn 0.4s ease-out forwards;
 }
 
-/* Responsive spacing */
+// Responsive utilities
 .py-section {
-  padding: 3rem 0;
+  padding: 4rem 0;
   
   @media (max-width: 768px) {
-    padding: 2rem 0;
+    padding: 2.5rem 0;
+  }
+}
+
+// Navigation
+.navbar {
+  background-color: white;
+  box-shadow: var(--app-shadow);
+  padding: 1rem 0;
+  
+  .navbar-brand {
+    font-weight: 700;
+    
+    .bi {
+      color: var(--bs-primary);
+    }
+  }
+  
+  .nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: var(--app-border-radius);
+    transition: var(--app-transition);
+    
+    &:hover, &.active {
+      background-color: rgba(37, 99, 235, 0.05);
+      color: var(--bs-primary);
+    }
+  }
+}
+
+// Modal
+.modal {
+  .modal-content {
+    border: none;
+    border-radius: var(--app-border-radius);
+    box-shadow: var(--app-shadow);
+  }
+  
+  .modal-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1.25rem;
+  }
+  
+  .modal-body {
+    padding: 1.25rem;
   }
 }
