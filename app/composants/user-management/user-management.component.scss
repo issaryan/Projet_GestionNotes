@@ -1,41 +1,60 @@
 :host {
   display: block;
   min-height: 100vh;
-  padding: 2rem 0;
-  background-color: #f8f9fa;
-}
-
-.modal {
-  background-color: rgba(0, 0, 0, 0.4);
-  
-  &-content {
-    border: none;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-  }
+  background-color: var(--bs-light);
 }
 
 .table {
-  background-color: white;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-
   th {
-    font-weight: 500;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
+    white-space: nowrap;
   }
 }
 
 .badge {
   font-weight: 500;
-  padding: 0.5em 0.75em;
+  font-size: 0.85em;
 }
 
-.empty-state {
-  background-color: white;
-  border-radius: 0.5rem;
-  padding: 2rem;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+.modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  
+  .modal-content {
+    border: none;
+    box-shadow: var(--app-shadow);
+  }
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  
+  .bi {
+    font-size: 1rem;
+  }
+}
+
+.rounded-circle {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group {
+  .input-group-text {
+    border-right: 0;
+  }
+  
+  .form-control {
+    border-left: 0;
+    
+    &:focus {
+      border-color: #ced4da;
+      box-shadow: none;
+    }
+  }
+}
+
+tr {
+  transition: var(--app-transition);
 }
